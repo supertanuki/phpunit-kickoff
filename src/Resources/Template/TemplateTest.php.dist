@@ -1,0 +1,12 @@
+<?php
+
+use PHPUnit\Framework\TestCase;
+%%usedClasses%%
+
+final class %%className%%Test extends TestCase
+{
+    public function setUp()
+    {
+        %%setUp%%
+    }
+}
