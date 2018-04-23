@@ -17,6 +17,9 @@ class Parser
     /** @var null|array */
     private $usedClasses;
 
+    /** @var null|Stmt\Class_ */
+    private $class;
+
     public function loadFileAndParse(string $file): void
     {
         $code = file_get_contents($file);
@@ -64,6 +67,21 @@ class Parser
         }
     }
 
+    public function isolateClass(): void
+    {
+        $this->checkCurrentNameSpace();
+
+        foreach ($this->currentNameSpace->stmts as $stmt) {
+            if ($stmt instanceof Stmt\Class_) {
+                $this->class = $stmt;
+
+                return;
+            }
+        }
+
+        throw new \LogicException('Class not found');
+    }
+
     public function getUsedClasses()
     {
         if (null === $this->usedClasses) {
@@ -71,6 +89,15 @@ class Parser
         }
 
         return $this->usedClasses;
+    }
+
+    public function getClass(): string
+    {
+        if (null === $this->class) {
+            $this->isolateClass();
+        }
+
+        return $this->class->name->toString();
     }
 
     private function checkCurrentNameSpace()

@@ -27,5 +27,6 @@ final class ParserTest extends TestCase
             ],
             $parser->getUsedClasses()
         );
+        $this->assertEquals('SimpleClass', $parser->getClass());
     }
 }
