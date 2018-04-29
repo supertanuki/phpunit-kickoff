@@ -16,11 +16,13 @@ class ProcessTemplate
                 '%%className%%',
                 '%%usedClasses%%',
                 '%%setUp%%',
+                '%%properties%%',
             ],
             [
                 $templateData->className,
                 implode("\n", $templateData->usedClasses),
                 implode("\n" . str_repeat(' ', $this->getTabs($template, '%%setUp%%')), $templateData->setUp),
+                implode("\n" . str_repeat(' ', $this->getTabs($template, '%%properties%%')), $templateData->properties),
             ],
             $template
         );

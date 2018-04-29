@@ -5,6 +5,8 @@ use PHPUnit\Framework\TestCase;
 
 final class %%className%%Test extends TestCase
 {
+    %%properties%%
+
     public function setUp()
     {
         %%setUp%%

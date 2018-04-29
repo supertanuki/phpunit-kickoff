@@ -17,8 +17,12 @@ class ProcessTemplateTest extends TestCase
                     'use Whatever\Something as Stuff;',
                 ],
                 [
-                    '$helloWorld = $this->prophesize(HelloWorld::class);',
-                    '$stuff = $this->prophesize(Stuff::class);',
+                    '$this->helloWorld = $this->prophesize(HelloWorld::class);',
+                    '$this->stuff = $this->prophesize(Stuff::class);',
+                ],
+                [
+                    'private $this->helloWorld;',
+                    'private $this->stuff;',
                 ]
             )
         );
@@ -32,10 +36,13 @@ use Whatever\Something as Stuff;
 
 final class MyClassTest extends TestCase
 {
+    private $this->helloWorld;
+    private $this->stuff;
+
     public function setUp()
     {
-        $helloWorld = $this->prophesize(HelloWorld::class);
-        $stuff = $this->prophesize(Stuff::class);
+        $this->helloWorld = $this->prophesize(HelloWorld::class);
+        $this->stuff = $this->prophesize(Stuff::class);
     }
 }
 ',
