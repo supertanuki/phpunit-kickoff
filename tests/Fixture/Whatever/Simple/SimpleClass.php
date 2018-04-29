@@ -13,15 +13,33 @@ class SimpleClass
     /** @var AliasedAnotherDependency */
     private $anotherDependency;
 
-    public function __construct(WhateverDependency $whateverDependency, AliasedAnotherDependency $anotherDependency)
-    {
+    /** @var string */
+    private $path;
+
+    /** @var bool */
+    private $isEnabled;
+
+    private $notTypedVariable;
+
+    public function __construct(
+        WhateverDependency $whateverDependency,
+        AliasedAnotherDependency $anotherDependency,
+        string $path,
+        bool $isEnabled,
+        $notTypedVariable
+    ) {
         $this->whateverDependency = $whateverDependency;
         $this->anotherDependency = $anotherDependency;
+        $this->path = $path;
+        $this->isEnabled = $isEnabled;
+        $this->notTypedVariable = $notTypedVariable;
     }
 
     public function handle(): string
     {
-        $this->anotherDependency->handle();
+        if ($this->notTypedVariable) {
+            $this->anotherDependency->handle($this->path, $this->isEnabled);
+        }
 
         return $this->whateverDependency->getStuff();
     }
